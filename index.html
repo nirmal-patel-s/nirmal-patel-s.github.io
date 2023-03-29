@@ -1,40 +1,592 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+	<title>reveal.js</title>
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/dracula.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+</head>
+<style>
+	.slides .header {
+		position: absolute;
+		top: -50%;
+		left: -50%;
+	}
+
+	.slides .footer {
+		position: absolute;
+		bottom: 50%;
+		left: -50%;
+	}
+
+	.fragment.blur {
+		filter: blur(5px);
+	}
+
+	.fragment.blur.visible {
+		filter: none;
+	}
+
+	.ts-circle {
+		border-radius: 50%;
+		width: 364px;
+		height: 364px;
+		padding: 10px;
+		background: #fff;
+		border: 3px solid #000;
+		color: #FFF;
+		margin-left: auto;
+		margin-right: auto;
+		font: 32px Arial, sans-serif;
+		font-weight: bold;
+		position: relative;
+		background-color: #0096FF;
+	}
+
+	.js-circle {
+		border-radius: 50%;
+		width: 190px;
+		height: 190px;
+		padding: 10px;
+		border: 3px solid #000;
+		color: #0096FF;
+		text-align: center;
+		font: 32px Arial, sans-serif;
+		font-weight: bold;
+		position: absolute;
+		top: 85px;
+		left: 85px;
+		background-color: yellow;
+	}
+</style>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+<section>
+	<h4 class="r-fit-text">TYPESCRIPT</h2>
+</section>
+<section>
+	<h4>Nirmal Patel</h4>
+	<ul>
+		<li>
+			FullStack Engineer
+		</li>
+		<li>
+			Team Manager (Vue JS) @Simform
+		</li>
+		<li>
+			More than 5+ years since I encountered Typescript
+		</li>
+	</ul>
+</section>
+<section data-transition="zoom-in fade-out">
+	<p>What is Typescript ? </p>
+	<p class="fragment">Why should we use it ? </p>
+	<p class="fragment">How can we utilize it in a best way ? </p>
+	<img class="fragment" src="assets/what.webp">
+</section>
+<section>
+	<p>
+		<h4>Typescript is superset of javascript</h4>
+		<div class="ts-circle fragment fade-in">
+			<br />
+			<span class='text'>Typescript</span>
+			<div class="js-circle">
+				<br />
+				<br />
+				Javascript
 			</div>
 		</div>
+	</p>
+</section>
+<section>
+	<p>
+		<h6>what is the output for following code snippet ?</h6>
+		<img class="fragment fade-in" src="assets/strict-type.png" alt="strict-type">
+		<img class="fragment fade-in" src="assets/undefined.png" alt="undefined">
+	</p>
+</section>
+<section>
+	<h4>Why should we use it ?</h4>
+	<ul>
+		<li class="fragment fade-in">Strict Type</li>
+		<li class="fragment fade-in">Increased team performance</li>
+		<li class="fragment fade-in">Advance ECMAscript features</li>
+		<li class="fragment fade-in">Take advancetage of OOP</li>
+	</ul>
+</section>
+		
+		
+		
+		
+<section>
+	<h4>And How ? <span class="fragment fade-in">&gt;</span><span class="fragment fade-in">&gt;</span><span class="fragment fade-in">&gt;</span> <span  class="fragment fade-in">TSC</span> </h4>
+	<p class="fragment fade-in">Typescript compiler utility</p>
+	<p>
+		<img height=150 width=250 class="fragment fade-in" src="assets/tsc-init.png">
+	</p>
+</section>
+<section>
+	<h4>
+		tsconfig.json default settings
+	</h4>
+	<img class="fragment fade-in" src="assets/ts-config-option.png">
+</section>
+<section>
+	<h4>tsconfig options</h4>
+	<div style="font-size: 20px;">
+		<div class="r-hstack" style="margin-bottom: 25px;">
+			<div style="width:20%" class="my-color" class="my-color">OutDir</div>
+			<div style="width:80%">path to folder where resulting compiled code will be saved</div>
+		</div>
+		<div class="r-hstack" style="margin-bottom: 25px;">
+			<div style="width:20%" class="my-color">noEmitOnError</div>
+			<div style="width:80%">Disable emitting files if any type checking errors are reported</div>
+		</div>
+		<div class="r-hstack" style="margin-bottom: 25px;">
+			<div style="width:20%" class="my-color">target</div>
+			<div style="width:80%">Set the JavaScript language version for emitted JavaScript and include compatible library declarations.</div>
+		</div>
+		<div class="r-hstack" style="margin-bottom: 25px;">
+			<div style="width:20%" class="my-color">lib</div>
+			<div style="width:80%">Specify a set of bundled library declaration files that describe the target runtime environment.</div>
+		</div>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+		<div class="r-hstack" style="margin-bottom: 25px;">
+			<div style="width:20%" class="my-color">noImplicitAny</div>
+			<div style="width:80%">Enable error reporting for expressions and declarations with an implied 'any' type.</div>
+		</div>
+		<div class="r-hstack" style="margin-bottom: 25px;">
+			<div style="width:20%" class="my-color">strictNullChecks</div>
+			<div style="width:80%">When type checking, take into account 'null' and 'undefined'.</div>
+		</div>
+		<div class="r-hstack" style="margin-bottom: 25px;">
+			<div style="width:20%" class="my-color">strictFunctionTypes</div>
+			<div style="width:80%">When assigning functions, check to ensure parameters and the return values are subtype-compatible</div>
+		</div>
+		<div class="r-hstack" style="margin-bottom: 25px;">
+			<div style="width:20%" class="my-color">noUnusedParameters</div>
+			<div style="width:80%">Raise an error when a function parameter isn't read.</div>
+		</div>
+		<div class="r-hstack" style="margin-bottom: 25px;">
+			<div style="width:20%" class="my-color">noUnusedLocals</div>
+			<div style="width:80%">Enable error reporting when local variables aren't read.</div>
+		</div>
+	</div>
+</section>
+<section>
+	<h4>Types</h4>
+	<img class="fragment fade-in" src="assets/ts-types.png" alt="">
+</section>
+<section>
+	<h4>Basic Types</h4>
+	<pre><code data-line-numbers="2-3| 5-6|8-9">	
+	const empName = 'ABC'; // type inference
+	const empName: string = 'ABC';
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+	const age = 23; // type inference
+	const age: number = 23;
+
+	const isActive = true; // type inference
+	const isActive: boolean = true;
+	</code></pre>
+</section>
+<section>
+	<h4>Enums</h4>
+	<pre class="fragment fade-in"><code data-line-numbers="2-7|8|10-15|16|18-23|24">
+		enum ErrorLevel{
+			error,
+			warning,
+			info,
+			debug
+		};
+		//error = 0, warning = 1, info = 2, debug = 3;
+
+		enum ErrorLevel{
+			error=2,
+			warning,
+			info,
+			debug
+		};
+		//error = 2, warning = 3, info = 4, debug = 5;
+
+		enum ErrorLevel{
+			error=2,
+			warning,
+			info=5,
+			debug
+		};
+		//error = 2, warning = 3, info = 5, debug = 6;
+	</code></pre>
+	<pre class="fragment fade-in">
+		<code data-line-numbers>
+			enum ErrorLevel{
+				error=2,
+				warning,
+				info='A',
+				debug
+			};
+		</code>
+	</pre>
+	<div class="fragment fade-in">//Enum member must have initializer.</div>
+</section>
+<section>
+	<h4>Tuples</h4>
+	<pre><code data-line-numbers="2|4">
+		const userReponse: [boolean, string] = [true, 'success'];
+
+		const [firstName, setFirstName] = useState('Dylan');
+	</code></pre>
+</section>
+<section>
+	<h4>More Types...</h4>
+	<pre class="fragment fade-in"><code data-line-numbers="2-3|5-6|8-15">
+		//literal
+		let address: 'fulladdress' | 'address';
+
+		//type alias
+		type userAddress = ('fulladdress' | 'address')
+
+		//function 
+		function add(x: number, y: number): number {
+			return x + y;
+		}
+		
+		const printOutput = (value: number): void => {
+			console.log(`output is ${value}`)
+		}
+	</code></pre>
+</section>
+<section>
+<h4>any</h4>
+<pre class="fragment fade-in"><code data-line-numbers>
+	let empName;
+	let empName:any;
+	let empName:any = 'ABC';
+</code></pre>
+<pre class="fragment fade-in"><code data-line-numbers>
+	//typeof empName
+	let empName; // undefined
+	let empName:any; // undefined
+	let empName:any = 'ABC'; // string
+</code></pre>
+<h4 style="font-size: 20px"class="fragment fade-in">if you are using type <b><i>any</i></b> then you are not really using typescript</h4>
+</section>
+<section>
+<h4>unknown</h4>
+<pre class="fragment fade-in"><code data-line-numbers>
+	let empName: unknown;
+	empName = 'ABC' //string
+	empName = 23; // number
+</code></pre>
+<pre class="fragment fade-in"><code data-line-numbers="2|4-5">
+	let personName: string = empName; // unknown is not assignable to string
+
+	let empName: any = 23;
+	let personName: string = empName; // this will allow, so never use any
+</code></pre>
+</section>
+<section>
+<h4>never</h4>
+<pre class="fragment fade-in"><code data-line-numbers="2-4|6">
+	function error(message: string): never {
+		throw new Error(message);
+	}
+
+	type TOptions = { basic: TBasicOptions; advanced: never } | { basic: never; advanced: TAdvancedOptions };
+</code></pre>
+</section>
+
+<section>
+	<h4>Object</h4>
+	<pre class="fragment fade-in"><code data-line-numbers>
+		const employee = {
+			name: 'ABC',
+			age: 34
+		}
+	</code></pre>
+	<pre class="fragment fade-in"><code data-line-numbers>
+		console.log(employee.name) 
+		console.log(employee.project) 
+		// property project does not exist on type '{name: string: age: number}'
+	</code></pre>
+	<pre class="fragment fade-in"><code data-line-numbers>
+		const employee: object = {
+			name: 'ABC',
+			age: 34
+		}
+	</code></pre>
+	<pre class="fragment fade-in"><code data-line-numbers>
+		console.log(employee.name) 
+		// property name does not exist on type 'object'
+	</code></pre>
+	
+</section>
+
+<section>
+	<h4>Record<K,V></h4>
+	<pre class="fragment fade-in">
+		<code data-line-numbers>
+		const projectInfo: Record &lt;string, number|string&gt; = {
+			id: 1,
+			name: 'Project1',
+			status: 'active'
+		}
+	</code></pre>
+	<pre class="fragment fade-in"><code data-line-numbers>
+		type Key = 'id' | 'name' | 'status';
+		type Val = number|string;
+		const projectInfo: Record&lt;Key, Val&gt; = {
+			id: 1,
+			name: 'ABC',
+			status: 'active'
+		}
+	</code></pre>
+	
+</section>
+<section>
+<h4>TypeCast & Guards</h4>
+<pre class="fragment fade-in"><code data-line-numbers="2-4|6-12|14-15">
+// typeCast
+document.getElementById('user-input') as HTMLInputElement 		
+&lt;HTMLInputElement&gt;document.getElementById('user-input')
+
+//Type Guards
+type employee = {
+	name: string,
+	age: number
+}
+const e1: employee = { ... };
+if('name' in e1) { ... }
+
+type abc = emp & admin //Type intersection
+type abc = emp | admin //Type union
+</code></pre>
+</section>
+
+<section>
+<h4>Partial<K,V></h4>
+<pre class="fragment fade-in"><code data-line-numbers="2-6|7|8|9-13|14">
+type Employee = {
+	id: number,
+	name: string,
+	age: number
+}
+//getEmployeeData () >>> receiving employee details as empData
+const currentEmployeeData: Employee = {};
+if(empData.age > 35) {
+	currentEmployeeData.id = empData.id,
+	currentEmployeeData.name = 'Mr.' + empData.name;
+	currentEmployeeData.age = empData.age
+}
+//making all the properties optional is one of the option.
+</code></pre>
+</section>
+<section>
+<h4>Partial</h4>
+<pre class="fragment fade-in"><code data-line-numbers="2-6|7|8|9-13|14">
+type Employee = {
+	id: number,
+	name: string,
+	age: number
+}
+//getEmployeeData () >>> receiving emp details as empData
+const currentEmployeeData: Partial&lt;Employee&gt; = {};
+if(empData.age > 35) {
+	currentEmployeeData.id = empData.id,
+	currentEmployeeData.name = 'Mr.' + empData.name;
+	currentEmployeeData.age = empData.age
+}
+console.log((currentEmployeeData as Employee).age); 
+</code></pre>
+</section>
+
+<section>
+<h4>Class</h4>
+<pre><code data-line-numbers="2-9|11-13|15-21">
+class Rectangle {
+	height: number;
+	width: number;
+	constructor(height, width) {
+		this.height = height;
+		this.width = width;
+	}
+}
+
+class Rectangle {
+	constructor(public height,public width) {}
+}
+
+class Rectangle {
+	constructor(public height,public width) {}
+
+	getArea(): void {
+		return this.height * this.width
+	}
+}
+</code></pre>
+</section>
+
+<section>
+<h4>Interfaces</h4>
+<ul>
+	<li>forces to have clean defination of properties & method.</li>
+	<li>just like JS objects interfaces are always open to extend.</li>
+	<li>type aliases can not re-opened to add new properties.</li>
+	<li>interfaces are just TS things. do not compiled in JS.</li>
+</ul>
+
+<pre><code data-line-numbers>
+interface Animal {
+	name: string
+}
+interface Bear extends Animal {
+	honey: boolean
+}
+const bear = getBear() 
+</code></pre>
+</section>
+
+<section>
+<h4>index properties</h4>
+<pre><code data-line-numbers>
+//{'id1': 'ABC', 'id2': 'XYZ'}
+interface ErrorController {
+	[prop: string]: string;
+}
+</code></pre>
+</section>
+
+<section>
+<h4>Generics</h4>
+<p class="fragment fade-in">A generic type is a type which is connected to other type, but flexible about what other type is.</p>
+<p class="fragment fade-in">E.g. we have Array ,promises which are dealing with other types.</p>
+<pre class="fragment fade-in"><code data-line-numbers="2|3|4|6-10">
+const projectIds = ['prjId1', 'prjId2', 'prjId3'] //type inference >>> string[]
+const projectIds: string[] = ['prjId1', 'prjId2', 'prjId3']
+const projectIds: Array&lt;string&gt; = ['prjId1', 'prjId2', 'prjId3']
+
+const myPromise: Promise&lt;string&gt; = new Promise((resolve, reject) => {
+	setTimeout(() => {
+		resolve('This is done !!!')
+	}, 1000)	
+});
+</code></pre>
+</section>
+<section>
+<h4>Generics</h4>
+<pre class="fragment fade-in"><code data-line-numbers="2-4|5|6">
+function merge(obj1: Object, obj2: Object) {
+	return Object.assign(obj1, obj2);
+}
+const mergeObj = ({name: 'ABC', age: 30}, {age: 45})
+console.log(mergeObj.age) // ts error
+</code></pre>
+<pre class="fragment fade-in"><code data-line-numbers="2-4|5|6-7">
+function merge&lt;T,U&gt;(obj1: T, obj2: U) {
+	return Object.assign(obj1, obj2);
+}
+const mergeObj = ({name: 'ABC', age: 30}, {age: 45})
+console.log(mergeObj.age) // 45
+//typeof mergeObj T & U
+</code></pre>
+</section>
+<section>
+<h4>Generics</h4>
+<pre class="fragment fade-in"><code data-line-numbers>
+type Person = {
+	name: string,
+	age: number
+}
+function merge&lt;T,U&gt;(obj1: T extends Person, obj2: U) {
+	return Object.assign(obj1, obj2);
+}
+</code></pre>
+<pre class="fragment fade-in"><code data-line-numbers>
+const employees = {
+	'empId1': {
+		name: 'ABC',
+		age: 33
+	},
+	'empId2': {
+		name: 'XYZ',
+		age: 35
+	}
+}
+function merge&lt;T,U&gt;(obj1: T, empId: U extends keyof T) {
+	return getFilteredData(obj1, empId);
+}
+</code></pre>
+</section>
+<section>
+<h4>Let's Try - emp.js</h4>
+<pre class="fragment fade-in"><code  data-line-numbers>
+const emplyeeData = {
+	'id1': {
+		name: 'ABC',
+		age: 23
+	},
+	'id2': {
+		name: 'XYZ',
+		age: 24
+	}
+}
+const firstEmp = getEmpData(emplyeeData, 'id1');
+
+function getEmpData(empData,id) {
+	return empData[id]
+}
+</code></pre>
+</section>
+<section>
+	<h4>emp.ts</h4>
+<pre class="fragment fade-in" style="font-size: 15px;"><code data-line-numbers>
+type empDetail = {
+	name: string;
+	age: number
+}
+type empId = {
+	[prop: string]: empDetail
+}
+
+
+const firstEmp = getEmpData(emplyeeData, 'id1');
+
+function getEmpData&lt;T extends empId, U extends keyof T&gt;(empData: T, id: U) {
+	return empData[id]
+}
+
+console.log(firstEmp)
+	</code></pre>
+</section>
+</div>
+	
+</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+</body>
+
 </html>

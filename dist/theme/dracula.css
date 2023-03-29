@@ -412,3 +412,7 @@ section.has-light-background, section.has-light-background h1, section.has-light
 .reveal ol li {
   counter-increment: li;
 }
+
+.my-color {
+  color: var(--r-heading-color);
+}

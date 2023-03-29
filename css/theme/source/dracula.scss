@@ -130,3 +130,7 @@ $codeFont: "Fira Code", $systemFontsMono;
 .reveal ol li {
 	counter-increment: li
 }
+
+.my-color {
+	color: var(--r-heading-color);
+}
