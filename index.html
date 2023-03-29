@@ -568,6 +568,60 @@ function getEmpData&lt;T extends empId, U extends keyof T&gt;(empData: T, id: U)
 console.log(firstEmp)
 	</code></pre>
 </section>
+<section>
+	<h4>Decorators</h4>
+	<p style="font-size: 15px;">writing code that is easier to use for others.</p>
+	<p style="font-size: 15px;">can be attached to class, method, accessor, property, paramater.</p>
+	<p style="font-size: 15px;">Factory Decorators can allow to pass more data.</p>
+	<pre><code>
+		function color(value: string) {
+			// this is the decorator factory, it sets up
+			// the returned decorator function
+			return function (target) {
+			  // this is the decorator
+			  // do something with 'target' and 'value'...
+			};
+		}
+	</code></pre>
+</section>
+<section>
+<h4>Decorators</h4>
+<pre><code>
+function first() {
+	console.log("first(): factory evaluated");
+	return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+		console.log("first(): called");
+	};
+	}
+	
+	function second() {
+	console.log("second(): factory evaluated");
+	return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+		console.log("second(): called");
+	};
+	}
+	
+	class ExampleClass {
+	@first()
+	@second()
+	method() {}
+	}
+</code></pre>
+</section>
+<section>
+	<h4>Decorators</h4>
+	<ul>
+		<li>Class Decorator</li>
+		<li>Method Decorator</li>
+		<li>Accessor Decorator</li>
+		<li>Property Decorator</li>
+		<li>Parameter Decorator</li>
+	</ul>
+</section>
+<section>
+	<h4>Typescript + Vue</h4>
+	<h4>It's Demo Time !!!</h4>
+</section>
 </div>
 	
 </div>
