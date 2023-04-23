@@ -124,10 +124,6 @@
 		<li class="fragment fade-in">Take advancetage of OOP</li>
 	</ul>
 </section>
-		
-		
-		
-		
 <section>
 	<h4>And How ? <span class="fragment fade-in">&gt;</span><span class="fragment fade-in">&gt;</span><span class="fragment fade-in">&gt;</span> <span  class="fragment fade-in">TSC</span> </h4>
 	<p class="fragment fade-in">Typescript compiler utility</p>
@@ -568,57 +564,159 @@ function getEmpData&lt;T extends empId, U extends keyof T&gt;(empData: T, id: U)
 console.log(firstEmp)
 	</code></pre>
 </section>
-<!-- <section>
+<section>
 	<h4>Decorators</h4>
-	<p style="font-size: 15px;">writing code that is easier to use for others.</p>
-	<p style="font-size: 15px;">can be attached to class, method, accessor, property, paramater.</p>
+	<p style="font-size: 15px;">Meta programming</p>
+	<p style="font-size: 15px;">Can be attached to class, method, accessor, property, paramater.</p>
 	<p style="font-size: 15px;">Factory Decorators can allow to pass more data.</p>
+	<p style="font-size: 15px;">multiple decorators will execute in bootom-up apporach.</p>
+</section>
+<section>
+	<h4><a href="https://www.typescriptlang.org/play?experimentalDecorators=true#code/PTAEDMFcDsGMBcCWB7aoAyyDmWCmAnACllQGd59IFl8AuUAMRgRWgEpQBvAKBFAEgS0UsgA2uAHSjshAAYN8yALah4AC1yrkAdwKhk4UAAkAhtGSJQAQhuy2vMAF9uD0AAFMOAq9iiTpUlAAUSUAB2kAT1xNHj5BMgoqeBpCDliwfnjhMUlpLDkjXFFpaxtQAHFkZAATUABZGmhEaCxgsMjo0AA5ZDtXfmc+QbA+IXJQXDCARlAAXlBoXG028OQo3FSXKDgkVAxsPCI8gGUKZqx6cnxztO5+fFx4SHw0bZZUYgTKajpQMwjbpkxvAJtM5gslqBgd9kkQ2ABuO5ZETiKQyeSKFTqTTJXT4fSGUzmSw2KygAAknEmoSmEmgJiUuEcdkyd2czhcHgOBEIAHIAMJ+AKgcgmfDwXDVXn2Xz+QIhVbrLh3emM8G8rqIfBKEyiXmI5GJH6pLjsoA" target="_blank">Class Decorators </a></h4>
 	<pre><code>
-		function color(value: string) {
-			// this is the decorator factory, it sets up
-			// the returned decorator function
-			return function (target) {
-			  // this is the decorator
-			  // do something with 'target' and 'value'...
-			};
+		function Logger(constructor: Function) {
+			console.log(`Logs from Class Decorator`);
+		}
+		
+		@Logger
+		class Employee {
+			constructor() {
+				console.log(`Hello !!! Good Morning !!!`);
+			}
+		}
+		// const emp1 = new Employee();
+	</code></pre>
+	<h5>Factory Pattern</h5>
+	<pre><code>
+		function Logger(logString: string) {
+			return function(constructor: any) {
+				const emp1 = new constructor();
+				console.log(`From the tower of Hanoi !!! ${emp1.name}`)		
+			}
+		}
+		@Logger('Class started')
+		class Employee {
+			name = 'ABC';
+			constructor() {}
 		}
 	</code></pre>
 </section>
 <section>
 <h4>Decorators</h4>
-<pre><code>
-function first() {
-	console.log("first(): factory evaluated");
-	return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-		console.log("first(): called");
-	};
+<pre><code style="font-size: 15px">
+function propertyDecorator(target: any, propertyName: string) {}
+function accessorDecorator(target: any, name: string, descriptor: PropertyDescriptor) {}
+function methodDecorator(target: any, name: string, descriptor: PropertyDescriptor) {}
+function parameterDecorator(target: any, name: string, position: number) {}
+</code></pre>
+<pre>
+	<code style="font-size: 15px">
+		class Employee {
+			@propertyDecorator
+			empName: string;
+			_salary: number;
+		
+			@accessorDecorator
+			set salary(val: number){
+				if(val > 0) this._salary = val;
+			}
+			constructor(n: string, s: number) {
+				this.empName = n;
+				this._salary = s;
+			}
+			@methodDecorator
+			getTaxImplication(@parameterDecorator taxPercentage: number) {
+				return this.salary * taxPercentage / 100
+			}
+			getEmployeeName() {
+				return this.empName
+			}
+		}
+	</code>
+</pre>
+</section>
+<section>
+<h4>changing class behaviour  through Decorators</h4>
+<pre><code style="font-size: 15px">
+function toUpper() {
+	return function <T extends { new (...args: any[]): {empName: string, _salary: number}}>(orgConstructor: T) {
+		return class extends orgConstructor {
+			constructor(...args: any[]) {
+				super(...args);
+				// console.log(this.empName);
+				// console.log(this._salary);
+				for(const val in args) {
+					this.empName = this.empName.toUpperCase();
+				}
+			}
+		}
 	}
-	
-	function second() {
-	console.log("second(): factory evaluated");
-	return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-		console.log("second(): called");
-	};
+}
+@toUpper()
+class Employee {
+	@propertyDecorator
+	empName: string;
+	_salary: number;
+
+	@accessorDecorator
+	set salary(val: number){
+		if(val > 0) this._salary = val;
 	}
-	
-	class ExampleClass {
-	@first()
-	@second()
-	method() {}
+	constructor(n: string, s: number) {
+		this.empName = n;
+		this._salary = s;
 	}
+	@methodDecorator
+	getTaxImplication(@parameterDecorator taxPercentage: number) {
+		return this.salary * taxPercentage / 100
+	}
+	getEmployeeName() {
+		return this.empName
+	}
+}
+	</code></pre>
+</section>
+<section>
+<h4>Validation with Decorators</h4>
+<pre><code style="font-size: 15px">
+const config: { [input: string]: string[] } = {};
+ 
+const addValidator = (input: string, type: string) => {
+  config[input] = config[input] 
+    ? [...config[input], type] 
+    : [type];
+}
+ 
+const Required = (_: any, input: string) => addValidator(input, 'required');
+const Maxlength = (_: any, input: string) => addValidator(input, 'maxlength');
+const Positive = (_: any, input: string) => addValidator(input, 'positive');
+ 
+const validate = (course: any) =>  
+  Object.entries(config).every(([input, types]) => 
+    types.every(type => 
+      type === 'required' && course[input] || 
+      type === 'positive' && course[input] > 0 ||
+      type === 'maxlength' && course[input].length < 5
+    )
+  )
+ 
+class Course {
+  @Required @Maxlength title: string;
+  @Required @Positive price: number;
+ 
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
 </code></pre>
 </section>
-<section>
-	<h4>Decorators</h4>
-	<ul>
-		<li>Class Decorator</li>
-		<li>Method Decorator</li>
-		<li>Accessor Decorator</li>
-		<li>Property Decorator</li>
-		<li>Parameter Decorator</li>
-	</ul>
-</section>
-<section>
+<!-- <section>
+	<h4>Namespaces</h4>
+	<p>Group codes together</p>
+	<p></p>
+</section> -->
+<!-- <section>
 	<h4>Typescript + Vue</h4>
 	<h4>It's Demo Time !!!</h4>
 </section> -->
