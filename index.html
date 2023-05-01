@@ -565,87 +565,171 @@ console.log(firstEmp)
 	</code></pre>
 </section>
 <section>
-	<h4>Decorators</h4>
-	<p style="font-size: 15px;">Meta programming</p>
-	<p style="font-size: 15px;">Can be attached to class, method, accessor, property, paramater.</p>
-	<p style="font-size: 15px;">Factory Decorators can allow to pass more data.</p>
-	<p style="font-size: 15px;">multiple decorators will execute in bootom-up apporach.</p>
+<h4 class="fragment">Static methods & properties</h4>
+<span class="fragment" style="font-size: 15px;">Math.PI, Math.round(2.345)</span>
+<pre><code class="fragment" style="font-size: 15px;" data-line-numbers>class Employee {
+	static gradYear = 2023;
+	constructor() {
+		// console.log(this.gradYear)
+		console.log(Employee.gradYear)
+	}
+	getEmployeeDetails(emp: string[], empId: number) {
+		return emp[empId]
+	}
+	static getResult(result: any, year: string) {
+		return result[year];
+	}
+}
+console.log(Employee.getResult('2023'))
+</code></pre>
 </section>
 <section>
-	<h4><a href="https://www.typescriptlang.org/play?experimentalDecorators=true#code/PTAEDMFcDsGMBcCWB7aoAyyDmWCmAnACllQGd59IFl8AuUAMRgRWgEpQBvAKBFAEgS0UsgA2uAHSjshAAYN8yALah4AC1yrkAdwKhk4UAAkAhtGSJQAQhuy2vMAF9uD0AAFMOAq9iiTpUlAAUSUAB2kAT1xNHj5BMgoqeBpCDliwfnjhMUlpLDkjXFFpaxtQAHFkZAATUABZGmhEaCxgsMjo0AA5ZDtXfmc+QbA+IXJQXDCARlAAXlBoXG028OQo3FSXKDgkVAxsPCI8gGUKZqx6cnxztO5+fFx4SHw0bZZUYgTKajpQMwjbpkxvAJtM5gslqBgd9kkQ2ABuO5ZETiKQyeSKFTqTTJXT4fSGUzmSw2KygAAknEmoSmEmgJiUuEcdkyd2czhcHgOBEIAHIAMJ+AKgcgmfDwXDVXn2Xz+QIhVbrLh3emM8G8rqIfBKEyiXmI5GJH6pLjsoA" target="_blank">Class Decorators </a></h4>
-	<pre><code>
-		function Logger(constructor: Function) {
-			console.log(`Logs from Class Decorator`);
-		}
-		
-		@Logger
-		class Employee {
-			constructor() {
-				console.log(`Hello !!! Good Morning !!!`);
-			}
-		}
-		// const emp1 = new Employee();
-	</code></pre>
-	<h5>Factory Pattern</h5>
-	<pre><code>
-		function Logger(logString: string) {
-			return function(constructor: any) {
-				const emp1 = new constructor();
-				console.log(`From the tower of Hanoi !!! ${emp1.name}`)		
-			}
-		}
-		@Logger('Class started')
-		class Employee {
-			name = 'ABC';
-			constructor() {}
-		}
-	</code></pre>
+<h4>Abstract Classes & Methods</h4>
+<pre class="fragment"><code style="font-size: 15px;" data-line-numbers>interface EmployeeDetails {
+	name: string,
+	empId: number | string
+}
+abstract class Employee {
+	protected employees: EmployeeDetails[] = []
+
+	abstract employeeOnboarding(name: string): void;
+	abstract createEmployee(name: string, empId: number| string): void;
+}
+
+class CasualEmployee extends Employee {
+	employeeOnboarding(name: string) {
+		console.log(`Welcome to the Org : ${name}`);
+	}
+	createEmployee(name: string, empId: number): void {
+		this.employees.push({
+			name,
+			empId
+		})
+	}
+}
+class Contractors extends Employee {
+	employeeOnboarding(name: string) {
+		console.log(`Welcome ${name}!! Be ready for the exciting work !!! `);
+	}
+	createEmployee(name: string, empId: string): void {
+		this.employees.push({
+			name,
+			empId
+		})
+	}
+}
+const e1 = new CasualEmployee();
+e1.createEmployee('ABC', 123);
+
+const e2 = new Contractors();
+e2.createEmployee('XYZ', '123')
+
+e1.employeeOnboarding('ABC');
+// Welcome to the Org : ABC
+
+e2.employeeOnboarding('XYZ');
+// Welcome XYZ!! Be ready for the exciting work !!! 
+</code></pre>
+</section>
+<section>
+<h4 class="fragment">Singleton</h4>
+<pre class="fragment"><code style="font-size:15px;" data-line-numbers>class DBConnection {
+private static dbInstance:DBConnection
+private constructor(connectionString: string) {
+	//mongodb.createConnection(connectionString);
+}
+static getDBInstance() {
+	if(DBConnection.dbInstance) {
+		return this.dbInstance
+	}
+	this.dbInstance = new DBConnection(`mongodb://mymongodb.server.com:35036/mydb`);
+}
+}
+const db = DBConnection.getDBInstance();
+</code></pre>
 </section>
 <section>
 <h4>Decorators</h4>
-<pre><code style="font-size: 15px">
-function propertyDecorator(target: any, propertyName: string) {}
+<ul style="font-size: 25px;">
+	<li class="fragment">Meta programming</li>
+	<li class="fragment">Can be attached to class, method, accessor, property, paramater.</li>
+	<li class="fragment">Factory Decorators can allow to pass more data.</li>
+	<li class="fragment">multiple decorators will execute in bootom-up apporach.</li>
+</ul>
+</section>
+<section>
+<h4 class="fragment"><a href="https://www.typescriptlang.org/play?experimentalDecorators=true#code/PTAEDMFcDsGMBcCWB7aoAyyDmWCmAnACllQGd59IFl8AuUAMRgRWgEpQBvAKBFAEgS0UsgA2uAHSjshAAYN8yALah4AC1yrkAdwKhk4UAAkAhtGSJQAQhuy2vMAF9uD0AAFMOAq9iiTpUlAAUSUAB2kAT1xNHj5BMgoqeBpCDliwfnjhMUlpLDkjXFFpaxtQAHFkZAATUABZGmhEaCxgsMjo0AA5ZDtXfmc+QbA+IXJQXDCARlAAXlBoXG028OQo3FSXKDgkVAxsPCI8gGUKZqx6cnxztO5+fFx4SHw0bZZUYgTKajpQMwjbpkxvAJtM5gslqBgd9kkQ2ABuO5ZETiKQyeSKFTqTTJXT4fSGUzmSw2KygAAknEmoSmEmgJiUuEcdkyd2czhcHgOBEIAHIAMJ+AKgcgmfDwXDVXn2Xz+QIhVbrLh3emM8G8rqIfBKEyiXmI5GJH6pLjsoA" target="_blank">Class Decorators </a></h4>
+<pre class="fragment"><code style="font-size: 15px;" data-line-numbers>function Logger(constructor: Function) {
+	console.log(`Logs from Class Decorator`);
+}
+
+@Logger
+class Employee {
+	constructor() {
+		console.log(`Hello !!! Good Morning !!!`);
+	}
+}
+// const emp1 = new Employee();
+</code></pre>
+</section>
+<section>
+<h4 class="fragment">Factory Pattern</h4>
+<pre class="fragment"><code style="font-size: 15px;" data-line-numbers>function Logger(logString: string) {
+	return function(constructor: any) {
+		const emp1 = new constructor();
+		console.log(`From the tower of Hanoi !!! ${emp1.name}`)		
+	}
+}
+@Logger('Class started')
+class Employee {
+	name = 'ABC';
+	constructor() {}
+}
+</code></pre>
+</section>
+<section>
+<h4 class="fragment">Decorators</h4>
+<pre class="fragment"><code style="font-size: 15px" data-line-numbers>function propertyDecorator(target: any, propertyName: string) {}
 function accessorDecorator(target: any, name: string, descriptor: PropertyDescriptor) {}
 function methodDecorator(target: any, name: string, descriptor: PropertyDescriptor) {}
 function parameterDecorator(target: any, name: string, position: number) {}
 </code></pre>
-<pre>
-	<code style="font-size: 15px">
-		class Employee {
-			@propertyDecorator
-			empName: string;
-			_salary: number;
-		
-			@accessorDecorator
-			set salary(val: number){
-				if(val > 0) this._salary = val;
-			}
-			constructor(n: string, s: number) {
-				this.empName = n;
-				this._salary = s;
-			}
-			@methodDecorator
-			getTaxImplication(@parameterDecorator taxPercentage: number) {
-				return this.salary * taxPercentage / 100
-			}
-			getEmployeeName() {
-				return this.empName
-			}
-		}
-	</code>
+<pre class="fragment">
+<code style="font-size: 15px" data-line-numbers>class Employee {
+	@propertyDecorator
+	empName: string;
+	_salary: number;
+
+	@accessorDecorator
+	set salary(val: number){
+		if(val > 0) this._salary = val;
+	}
+	constructor(n: string, s: number) {
+		this.empName = n;
+		this._salary = s;
+	}
+	@methodDecorator
+	getTaxImplication(@parameterDecorator taxPercentage: number) {
+		return this.salary * taxPercentage / 100
+	}
+	getEmployeeName() {
+		return this.empName
+	}
+}
+</code>
 </pre>
 </section>
 <section>
-<h4>changing class behaviour  through Decorators</h4>
-<pre><code style="font-size: 15px">
-function toUpper() {
-	return function <T extends { new (...args: any[]): {empName: string, _salary: number}}>(orgConstructor: T) {
+<h4 class="fragment"><a href="https://www.typescriptlang.org/play?experimentalDecorators=true#code/PTAEEYEoCgVAzArgOwMYBcCWB7ZoAy2A5kQKYBOAFKrgM7rmIbbkBcoAYihjspKAG9YYAJA1ktbABtSAOinFKAA0JFaCctgC2oAMJSAhrXUARUjXIH0LUAEJ7SmHAC+0YaAACqsuXepDxqAAoloADgoAnqSkgu5idAxM1lT8QnAi8RLScgpEygASpFIKdvagAOLY2AAmoACyLMiYyESlto5xri7ucOL0oKRh4KAAvKDIpADuwWGR0ZQw7gBMTmBIaFi4BMQ+lLkAygzNROz05MepceSk6IjkeOs8uNQJjMxsoAbIEZfpmf2DULDMYTaZ9RLvBYAbji-2y8kUKmI6ngmh0+iMpnMLCsNnstlAABIBIDwLJkAYtKRnI4Mp13F0wF4dhRKAByDGBegGcjoUjVNmrUD+TEzcLYKIxNKiClU0agNkAOUw5C0BikbJh6XBb2SC0EjNArncAGYhY9NnhrABVUKhVm-UTXW73BDcS2gAA8ABUBgAPPnIarqATjKagSiyKM8tTsL4RADaAF1IOwSWFFZTSKcji0ADSgAD6tHVPIi7GQiC0ACMKM5nAA+SgsIi6V5JFjsb2O0AZZ13PAiwKkAOkIPqFttiQQ5KxP7-GcsSPR8ixz7fZM9jIZWiIe1UKOyGO0SBa0Tb3p0eG5SjoAAWmFoskBmapp9hGUvWRkCLy98fsjFqW5A-GevbbvAS7gqAABu6qgM0nyriec7ntu-5Pi+Wbyhhz4Zlmsg2naFC6EYpDQh+IiGtu1FUfS3TuBavCgKEmj7ugERmBYuJUOgMY3HG3wFqx2DsREr7ZqAZwXKhvZfpIP43koAAKbEUBx4zYY+RICCJYkSTSQqGkxWwGKgqCkMYLBcTiep8auAnrhEBaypJ0n5qA1SWag5yhMk7CqaJ6mcd5vnJFu8nXoo9lkOg77pJFimImZFlWeQnnYpYyTqK5CHqMSrmGQyjHusxVL3jUNlZUuMWOfGLlZjm5weV5tA+ZgfmdqAgViWYbVhSwEVgH0UV-vxcVgSIiU5Ii5V3jUGXcdlmlytpBVZkV3RwCZeChDyWZ8uQVU8be42Cc5K1ubmRDCdgtCYJaFZVrW5BDcKV5JWNDkTXE02-soe2WOVFCLbZLDqHNC2THeFAxIDB0g4gtD8nlOmFY4k1-Up8PA+lXlLeDLF3Q9zFrbpxOWoZMIiMV7geER+4LH4ATqCE4qSrJIgeHpwXHckcRYVSTXHJNQGGCBT01hQMJxB4KWWZIR2ZTxcTI+gUnARElBwVIksvZA0rgZg8Da-BDagAADPwuFi2W8o65N1E6h2VDIMLHm0HrFBbiIuGCzEIKTb7D5PrbIHyrQjuy5D1R8ywcSxd6Bh+gAkrMmCoFYvCUNz+243H6V8X6ykUBZyB8WQXuvZzIj9q6uEluLESgAAVKARcl+QZcVzEYDgBbFv0aIsVs3MpASfqht9jcA7tyHeGhBJQ9Gm48nq6QwJhtMo8SvMbJ1OQshimPbIFuASxmmBI2fZQG+yCPsy7+PWYLJAQA">changing class behaviour  through Decorators</a></h4>
+<pre class="fragment">
+	<code style="font-size: 15px" data-line-numbers >function toUpper() {
+	return function &lt;T extends { new(...args: any[]): { empName: string, _salary: number } } &gt; (orgConstructor: T) {
 		return class extends orgConstructor {
 			constructor(...args: any[]) {
 				super(...args);
 				// console.log(this.empName);
 				// console.log(this._salary);
-				for(const val in args) {
+				for (const val in args) {
 					this.empName = this.empName.toUpperCase();
 				}
 			}
@@ -674,13 +758,11 @@ class Employee {
 		return this.empName
 	}
 }
-	</code></pre>
+</code></pre>
 </section>
 <section>
 <h4>Validation with Decorators</h4>
-<pre><code style="font-size: 15px">
-const config: { [input: string]: string[] } = {};
- 
+<pre class="fragment"><code style="font-size: 15px" data-line-numbers>const config: { [input: string]: string[] } = {};
 const addValidator = (input: string, type: string) => {
   config[input] = config[input] 
     ? [...config[input], type] 
@@ -692,14 +774,14 @@ const Maxlength = (_: any, input: string) => addValidator(input, 'maxlength');
 const Positive = (_: any, input: string) => addValidator(input, 'positive');
  
 const validate = (course: any) =>  
-  Object.entries(config).every(([input, types]) => 
-    types.every(type => 
-      type === 'required' && course[input] || 
-      type === 'positive' && course[input] > 0 ||
-      type === 'maxlength' && course[input].length < 5
-    )
-  )
- 
+Object.entries(config).every(([input, types]) => 
+	types.every(type => 
+		type === 'required' && course[input] || 
+		type === 'positive' && course[input] > 0 ||
+		type === 'maxlength' && course[input].length &lt; 5
+	)
+)
+
 class Course {
   @Required @Maxlength title: string;
   @Required @Positive price: number;
@@ -711,11 +793,19 @@ class Course {
 }
 </code></pre>
 </section>
-<!-- <section>
-	<h4>Namespaces</h4>
-	<p>Group codes together</p>
-	<p></p>
-</section> -->
+<section>
+	<h4 class="fragment">3rd Party Libraries</h4>
+	<img class="fragment" src="assets/type-defs.png">
+	<p class="fragment"><a href="https://www.npmjs.com/package/@types/underscore">@types/underscore</a></p>
+</section>
+<section style="top: 26px !important;">
+	<h4>Utility Libraries</h4>
+	<ul>
+		<li class="fragment"><a href="https://zod.dev/?id=basic-usage" target="_blank">Zod - TypeScript-first schema validation Library</a></li>
+		<li class="fragment"><a href="https://github.com/typestack/class-transformer" target="_blank">Class - Transformers</a></li>
+		<li class="fragment"><a href="https://github.com/typestack/class-validator" target="_blank">Class - Validators</a></li>
+	</ul>
+</section>
 <!-- <section>
 	<h4>Typescript + Vue</h4>
 	<h4>It's Demo Time !!!</h4>
@@ -742,3 +832,9 @@ class Course {
 </body>
 
 </html>
+<!-- 
+	abstract class
+	abstract methods
+	static method and types
+	demo with vue
+ -->
